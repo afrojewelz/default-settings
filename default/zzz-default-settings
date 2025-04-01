@@ -133,7 +133,7 @@ uci commit system
 if [ $(grep -c SNAPSHOT /etc/opkg/distfeeds.conf) -eq '0' ]; then
     sed -i 's,downloads.openwrt.org,mirrors.aliyun.com/openwrt,g' /etc/opkg/distfeeds.conf
 else
-    sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
+    sed -i 's,downloads.openwrt.org,mirror.mirrors.ustc.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
 fi
 
 # extra packages
