@@ -114,7 +114,7 @@ fi
 
 # timezone
 uci set system.@system[0].timezone=CST-8
-uci set system.@system[0].zonename=Asia/Shanghai
+uci set system.@system[0].zonename=Asia/Singapore
 uci commit system
 
 # log level
@@ -126,7 +126,7 @@ uci commit system
 mem_total=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 zram_size=$(echo | awk "{print int($mem_total*0.25/1024)}")
 uci set system.@system[0].zram_size_mb="$zram_size"
-uci set system.@system[0].zram_comp_algo='zstd'
+uci set system.@system[0].zram_comp_algo='lz4'
 uci commit system
 
 # opkg mirror
@@ -157,6 +157,9 @@ service nginx restart
 # docker mirror
 if [ -f /etc/config/dockerd ] && [ $(grep -c daocloud.io /etc/config/dockerd) -eq '0' ]; then
     uci add_list dockerd.globals.registry_mirrors="https://docker.m.daocloud.io"
+    uci add_list dockerd.globals.registry_mirrors="https://image.cloudlayer.icu"
+    uci add_list dockerd.globals.registry_mirrors="https://hub.rat.dev"
+    uci add_list dockerd.globals.registry_mirrors="https://docker.imgdb.de"
     uci commit dockerd
 fi
 
